@@ -1067,6 +1067,14 @@ are left as-is."
   :group 'magit-log
   :type 'character)
 
+(defcustom magit-log-options
+  '("--graph")
+  "Default arguments when running git-log
+Be careful what you add here, especially if you are using
+tramp to connect to servers with ancient Git versions."
+  :group 'magit-log
+  :type '(repeat string))
+
 ;;;;;; Others
 
 (defcustom magit-auto-revert-mode-lighter " MRev"
@@ -6321,6 +6329,7 @@ Other key binding:
                                 (eq (car magit-refresh-args) 'oneline)))
   (magit-log-margin-set-timeunit-width)
   (setq magit-file-log-file file)
+  (setq args magit-log-options)
   (when (consp range)
     (setq range (concat (car range) ".." (cdr range))))
   (magit-git-insert-section
